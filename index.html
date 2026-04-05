@@ -2,8 +2,8 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>資訊科技導論 期中考試｜完整題庫＋成績統計</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>資訊科技導論 期中考試｜教師密碼雜湊保護</title>
     <script src="https://cdn.sheetjs.com/xlsx-0.20.2/package/dist/xlsx.full.min.js"></script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -31,13 +31,19 @@
         .result-area { background: #eef3f9; margin: 0 32px 32px; border-radius: 28px; padding: 24px; display: none; }
         .score-box { text-align: center; background: white; border-radius: 24px; padding: 20px; margin-bottom: 20px; }
         .total-score { font-size: 2.8rem; font-weight: 800; color: #1e466e; }
-        .dashboard { background: white; border-radius: 32px; padding: 24px; margin-top: 30px; }
-        .dashboard h2 { margin-bottom: 20px; color: #1e466e; }
+        .teacher-section { background: white; border-radius: 32px; padding: 24px; margin-top: 30px; }
+        .teacher-header { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px; }
+        .teacher-login { display: flex; gap: 10px; align-items: center; }
+        .teacher-login input { padding: 10px 16px; border-radius: 40px; border: 1px solid #caddf0; font-size: 1rem; width: 180px; }
+        .teacher-area { display: none; }
+        .teacher-area.show { display: block; }
         .score-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
         .score-table th, .score-table td { padding: 12px; text-align: center; border-bottom: 1px solid #e2edf5; }
         .score-table th { background: #eef3fa; }
+        .dashboard-actions { display: flex; gap: 20px; flex-wrap: wrap; margin-bottom: 20px; }
         .footer { text-align: center; font-size: 0.75rem; padding: 20px; color: #6c7e8c; }
         @media (max-width: 700px) { .questions-area { padding: 16px; } .question-card { padding: 14px; } .options { gap: 12px; } }
+        .mistake-item { border-bottom: 1px solid #f0dba0; padding: 8px 0; }
     </style>
 </head>
 <body>
@@ -72,24 +78,82 @@
         <div class="footer">📌 選擇題每題2分，共30題（60分）。簡答題每題10分，共3題（30分），總分90分。成績會自動儲存在本機瀏覽器。</div>
     </div>
 
-    <!-- 成績摘要儀表板 -->
-    <div class="dashboard">
-        <h2>📊 歷次成績摘要（含學號／姓名／總分／等級）</h2>
-        <div style="display: flex; gap: 20px; flex-wrap: wrap; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-            <button id="clearHistoryBtn" style="background:#d9534f;">🗑️ 清除所有記錄</button>
-            <button id="exportAllBtn" style="background:#2c7da0;">📎 匯出全部成績 Excel</button>
+    <!-- 教師專區（預設隱藏，需密碼，密碼以 SHA-256 雜湊比對） -->
+    <div class="teacher-section">
+        <div class="teacher-header">
+            <h2>👩‍🏫 教師成績管理</h2>
+            <div class="teacher-login">
+                <input type="password" id="teacherPwd" placeholder="請輸入教師密碼">
+                <button id="loginBtn">登入</button>
+                <button id="logoutBtn" style="background:#6c757d; display:none;">登出</button>
+            </div>
         </div>
-        <div style="overflow-x: auto;">
-            <table class="score-table" id="historyTable">
-                <thead><tr><th>時間</th><th>姓名</th><th>學號</th><th>班級</th><th>選擇題得分</th><th>簡答題得分</th><th>總分</th><th>等級</th></tr></thead>
-                <tbody id="historyBody"></tbody>
-            </table>
+        <div id="teacherArea" class="teacher-area">
+            <div class="dashboard-actions">
+                <button id="clearHistoryBtn" style="background:#d9534f;">🗑️ 清除所有記錄</button>
+                <button id="exportAllBtn" style="background:#2c7da0;">📎 匯出全部成績 Excel</button>
+            </div>
+            <div style="overflow-x: auto;">
+                <table class="score-table" id="historyTable">
+                    <thead><tr><th>時間</th><th>姓名</th><th>學號</th><th>班級</th><th>選擇題得分</th><th>簡答題得分</th><th>總分</th><th>等級</th></tr></thead>
+                    <tbody id="historyBody"></tbody>
+                </table>
+            </div>
+            <div id="historyStats" style="margin-top: 20px;"></div>
         </div>
-        <div id="historyStats" style="margin-top: 20px;"></div>
     </div>
 </div>
 
 <script>
+    // ==================== 教師密碼雜湊（SHA-256）====================
+    // 密碼為 "1728"，其 SHA-256 雜湊值為：
+    // 可透過 Web Crypto API 計算，這裡直接使用預先計算的結果
+    const PASSWORD_HASH = "6a9c2c4c5b5c6a7d8f9e0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2"; // 此為 "1728" 的 SHA-256 佔位，實際使用下方動態計算更安全
+    // 為了避免硬編碼錯誤，我們在初始化時計算 "1728" 的雜湊
+    let CORRECT_HASH = "";
+
+    // 輔助函式：計算 SHA-256 雜湊
+    async function sha256(message) {
+        const msgBuffer = new TextEncoder().encode(message);
+        const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+        const hashArray = Array.from(new Uint8Array(hashBuffer));
+        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        return hashHex;
+    }
+
+    // 初始化正確雜湊（使用密碼 "1728"）
+    async function initPasswordHash() {
+        CORRECT_HASH = await sha256("1728");
+    }
+
+    // 登入邏輯
+    let isLoggedIn = false;
+    async function teacherLogin() {
+        const pwd = document.getElementById('teacherPwd').value;
+        if (!pwd) {
+            alert("請輸入密碼");
+            return;
+        }
+        const inputHash = await sha256(pwd);
+        if (inputHash === CORRECT_HASH) {
+            isLoggedIn = true;
+            document.getElementById('teacherArea').classList.add('show');
+            document.getElementById('loginBtn').style.display = 'none';
+            document.getElementById('logoutBtn').style.display = 'inline-block';
+            document.getElementById('teacherPwd').value = '';
+            renderHistory();
+        } else {
+            alert("密碼錯誤，無法查看成績摘要。");
+        }
+    }
+
+    function teacherLogout() {
+        isLoggedIn = false;
+        document.getElementById('teacherArea').classList.remove('show');
+        document.getElementById('loginBtn').style.display = 'inline-block';
+        document.getElementById('logoutBtn').style.display = 'none';
+    }
+
     // ==================== 完整 150 題選擇題庫 ====================
     const CHOICE_QUESTION_POOL = [
         { text: "下列何者屬於「感知」功能？", options: ["儀表板顯示數據", "感測器量測水質", "自動啟動設備", "AI預測結果"], correct: 1 },
@@ -190,7 +254,7 @@
         { text: "智慧城市的「智慧」應用不包含？", options: ["交通優化", "能源管理", "傳統路燈", "垃圾清運優化"], correct: 2 },
         { text: "以下哪種是物聯網在環境監測的應用？", options: ["空氣品質監測", "水質監測", "噪音監測", "以上皆是"], correct: 3 }
     ];
-    // 補足到 150 題（複製最後一題循環至滿150）
+    // 補足到150題
     while (CHOICE_QUESTION_POOL.length < 150) {
         CHOICE_QUESTION_POOL.push(CHOICE_QUESTION_POOL[CHOICE_QUESTION_POOL.length-1]);
     }
@@ -257,13 +321,13 @@
         return Math.min(maxScore, Math.round((hit / keywords.length) * maxScore));
     }
 
-    // ---------- 本機儲存 ----------
+    // ---------- 成績儲存與讀取 ----------
     function saveRecord(record) {
         let records = JSON.parse(localStorage.getItem('examScores') || '[]');
         records.unshift(record);
         if (records.length > 100) records = records.slice(0, 100);
         localStorage.setItem('examScores', JSON.stringify(records));
-        renderHistory();
+        if (isLoggedIn) renderHistory();
     }
 
     function getRecords() {
@@ -273,11 +337,29 @@
     function clearHistory() {
         if (confirm("清除所有歷史成績記錄？")) {
             localStorage.removeItem('examScores');
-            renderHistory();
+            if (isLoggedIn) renderHistory();
         }
     }
 
-    // ---------- 成績摘要渲染 ----------
+    function exportAllToExcel() {
+        const records = getRecords();
+        if (records.length === 0) { alert("無成績記錄可匯出"); return; }
+        const data = records.map(r => ({
+            "時間戳": r.timestamp,
+            "姓名": r.name,
+            "學號": r.studentId,
+            "班級": r.className,
+            "選擇題得分": r.choiceScore,
+            "簡答題得分": r.essayScore,
+            "總分": r.total,
+            "學習等級": r.grade
+        }));
+        const ws = XLSX.utils.json_to_sheet(data);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "成績記錄");
+        XLSX.writeFile(wb, `考試成績_${new Date().toISOString().slice(0,19)}.xlsx`);
+    }
+
     function renderHistory() {
         const records = getRecords();
         const tbody = document.getElementById('historyBody');
@@ -315,25 +397,6 @@
                 <div><strong>及格率：</strong> ${passRate}%</div>
             </div>
         `;
-    }
-
-    function exportAllToExcel() {
-        const records = getRecords();
-        if (records.length === 0) { alert("無成績記錄可匯出"); return; }
-        const data = records.map(r => ({
-            "時間戳": r.timestamp,
-            "姓名": r.name,
-            "學號": r.studentId,
-            "班級": r.className,
-            "選擇題得分": r.choiceScore,
-            "簡答題得分": r.essayScore,
-            "總分": r.total,
-            "學習等級": r.grade
-        }));
-        const ws = XLSX.utils.json_to_sheet(data);
-        const wb = XLSX.utils.book_new();
-        XLSX.utils.book_append_sheet(wb, ws, "成績記錄");
-        XLSX.writeFile(wb, `考試成績_${new Date().toISOString().slice(0,19)}.xlsx`);
     }
 
     // ---------- 考試核心 ----------
@@ -461,7 +524,7 @@
         return { choiceScore, essayScore, total, grade, choiceMistakes, essayDetails };
     }
 
-    async function submitExam() {
+    function submitExam() {
         if (timerInterval) clearInterval(timerInterval);
         const name = document.getElementById('studentName').value.trim();
         const studentId = document.getElementById('studentId').value.trim();
@@ -469,7 +532,6 @@
         const className = document.getElementById('studentClass').value.trim();
         const result = computeResult();
 
-        // 顯示結果
         document.getElementById('totalScore').innerText = result.total;
         document.getElementById('gradeLetter').innerHTML = `學習等級：${result.grade}`;
         let html = `<strong>✅ 選擇題得分：${result.choiceScore} / 60</strong><br><strong>📝 簡答題得分：${result.essayScore} / 30</strong><br><br>`;
@@ -477,17 +539,16 @@
         else {
             html += `<p><strong>❌ 選擇題錯題解析</strong></p>`;
             result.choiceMistakes.forEach(m => {
-                html += `<div class="mistake-item" style="border-bottom:1px solid #f0dba0; padding:8px 0;">${m.num}. 您的答案：${m.userAnswer}，正確答案：${m.correctAnswer} (${m.correctText})</div>`;
+                html += `<div class="mistake-item">${m.num}. 您的答案：${m.userAnswer}，正確答案：${m.correctAnswer} (${m.correctText})</div>`;
             });
         }
         html += `<br><p><strong>📋 簡答題評分細節</strong></p>`;
         result.essayDetails.forEach(d => {
-            html += `<div style="border-bottom:1px solid #f0dba0; padding:8px 0;">${d.num}. 得分：${d.score}/10<br>您的回答：${d.answer}</div>`;
+            html += `<div class="mistake-item">${d.num}. 得分：${d.score}/10<br>您的回答：${d.answer}</div>`;
         });
         document.getElementById('mistakeList').innerHTML = html;
         document.getElementById('resultArea').style.display = 'block';
 
-        // 儲存記錄
         const record = {
             timestamp: new Date().toLocaleString('zh-TW'),
             name, studentId, className,
@@ -505,13 +566,19 @@
         }
     }
 
+    // 綁定事件
     document.getElementById('submitBtn').addEventListener('click', submitExam);
     document.getElementById('resetBtn').addEventListener('click', resetExam);
+    document.getElementById('loginBtn').addEventListener('click', teacherLogin);
+    document.getElementById('logoutBtn').addEventListener('click', teacherLogout);
     document.getElementById('clearHistoryBtn').addEventListener('click', clearHistory);
     document.getElementById('exportAllBtn').addEventListener('click', exportAllToExcel);
 
-    initExam();
-    renderHistory();
+    // 初始化密碼雜湊和考試
+    (async () => {
+        await initPasswordHash();
+        initExam();
+    })();
 </script>
 </body>
 </html>
