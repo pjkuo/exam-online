@@ -322,13 +322,35 @@
     }
 
     // ---------- 成績儲存與讀取 ----------
-    function saveRecord(record) {
-        let records = JSON.parse(localStorage.getItem('examScores') || '[]');
-        records.unshift(record);
-        if (records.length > 100) records = records.slice(0, 100);
-        localStorage.setItem('examScores', JSON.stringify(records));
-        if (isLoggedIn) renderHistory();
+    // 請將下方 URL 換成您部署後取得的 Web App URL
+const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbykaId-phLVwEjKt3eW1xtVXWhUFbxQb25s6iEGXiQ93dVm9jHzEzEU2PP7rTP89Xpw/exec";
+
+async function saveRecord(record) {
+    // 1. 先儲存到 localStorage（原有功能，保留備份）
+    let records = JSON.parse(localStorage.getItem('examScores') || '[]');
+    records.unshift(record);
+    if (records.length > 100) records = records.slice(0, 100);
+    localStorage.setItem('examScores', JSON.stringify(records));
+    
+    // 2. 異步提交到 Google Sheets（不影響使用者體驗）
+    try {
+        const response = await fetch(GOOGLE_SHEETS_URL, {
+            method: 'POST',
+            mode: 'no-cors',        // 因為 Google Apps Script 支援跨域，但 no-cors 可簡化
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(record)
+        });
+        // 由於 mode: 'no-cors'，無法讀取回應內容，但請求仍會送出
+        console.log("成績已提交至 Google 試算表");
+    } catch (err) {
+        console.error("提交至 Google Sheets 失敗", err);
     }
+    
+    // 3. 如果教師已經登入，更新顯示的歷史表格
+    if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
+        renderHistory();
+    }
+}
 
     function getRecords() {
         return JSON.parse(localStorage.getItem('examScores') || '[]');
