@@ -89,7 +89,7 @@
             </div>
             <div class="mistake-list" id="mistakeList"></div>
         </div>
-        <div class="footer">📌 選擇題每題2分，共30題（60分）。簡答題每題10分，共3題（30分），總分90分。成績會自動儲存在本機瀏覽器。</div>
+        <div class="footer">📌 選擇題每題2分，共30題（60分）。簡答題每題10分，共3題（30分），僅供練習、不計入總分。總分 = 選擇題得分 × 1.6（滿分96分）。成績會自動儲存在本機瀏覽器。</div>
     </div>
 
     <!-- 教師專區（預設隱藏，需密碼，密碼以 SHA-256 雜湊比對） -->
@@ -555,8 +555,10 @@ async function saveRecord(record) {
                 score: score
             });
         }
-        const total = choiceScore + essayScore;
-        const grade = total >= 81 ? "A (優異)" : total >= 72 ? "B (良好)" : total >= 63 ? "C (中等)" : total >= 54 ? "D (及格)" : "F (不及格)";
+        // 總分只計選擇題（比重 100%）：選擇題得分 × CHOICE_MULTIPLIER；簡答題僅記錄、不計入總分
+        const CHOICE_MULTIPLIER = 1.6;
+        const total = Math.round(choiceScore * CHOICE_MULTIPLIER * 10) / 10;
+        const grade = total >= 90 ? "A (優異)" : total >= 80 ? "B (良好)" : total >= 70 ? "C (中等)" : total >= 60 ? "D (及格)" : "F (不及格)";
         return { choiceScore, essayScore, total, grade, choiceMistakes, essayDetails };
     }
 
@@ -570,7 +572,7 @@ async function saveRecord(record) {
 
         document.getElementById('totalScore').innerText = result.total;
         document.getElementById('gradeLetter').innerHTML = `學習等級：${result.grade}`;
-        let html = `<strong>✅ 選擇題得分：${result.choiceScore} / 60</strong><br><strong>📝 簡答題得分：${result.essayScore} / 30</strong><br><br>`;
+        let html = `<strong>✅ 選擇題得分：${result.choiceScore} / 60（總分 = 選擇題 × 1.6）</strong><br><strong>📝 簡答題得分：${result.essayScore} / 30（不計入總分）</strong><br><br>`;
         if (result.choiceMistakes.length === 0) html += `<p>🎉 選擇題全對！</p>`;
         else {
             html += `<p><strong>❌ 選擇題錯題解析</strong></p>`;
