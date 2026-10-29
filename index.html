@@ -57,6 +57,10 @@
         .footer { text-align: center; font-size: 0.75rem; padding: 20px; color: #6c7e8c; }
         @media (max-width: 700px) { .questions-area { padding: 16px; } .question-card { padding: 14px; } .options { gap: 12px; } }
         .mistake-item { border-bottom: 1px solid #f0dba0; padding: 8px 0; }
+        .paper-info { background: #eef7f1; border: 1px solid #cfe8d8; color: #1d5b3a; border-radius: 18px; padding: 10px 16px; font-size: 0.88rem; margin-bottom: 12px; line-height: 1.7; }
+        .paper-info code { background: #fff; border-radius: 8px; padding: 1px 8px; font-size: 0.85rem; color: #1e466e; }
+        .ax-chip { display: inline-block; font-size: 0.72rem; font-weight: 700; padding: 2px 10px; border-radius: 999px; margin-left: 8px; vertical-align: 2px; background: #e8f0f8; color: #1e466e; }
+        .ax-chip.F { background: #fdf0da; color: #8a5a00; }
     </style>
 </head>
 <body>
@@ -65,7 +69,7 @@
     <div class="paper">
         <div class="header">
             <h1>📘 資訊科技導論 期中考試</h1>
-            <p>物聯網與智慧人機協作｜完整150選擇題｜隨機抽題｜成績自動保存</p>
+            <p id="examSubtitle">物聯網與智慧人機協作（含 HITL／HOTL／HOOTL）｜分層隨機抽題・同卷不重複｜成績自動保存</p>
         </div>
         <div class="info-bar">
             <div class="student-info">
@@ -119,34 +123,22 @@
 
 <script>
     // ==================== 教師密碼雜湊（SHA-256）====================
-    // 密碼為 "1728"，其 SHA-256 雜湊值為：
-    // 可透過 Web Crypto API 計算，這裡直接使用預先計算的結果
-    const PASSWORD_HASH = "6a9c2c4c5b5c6a7d8f9e0a1b2c3d4e5f6a7b8c9d0e1f2a3b4c5d6e7f8a9b0c1d2"; // 此為 "1728" 的 SHA-256 佔位，實際使用下方動態計算更安全
-    // 為了避免硬編碼錯誤，我們在初始化時計算 "1728" 的雜湊
     let CORRECT_HASH = "";
 
-    // 輔助函式：計算 SHA-256 雜湊
     async function sha256(message) {
         const msgBuffer = new TextEncoder().encode(message);
         const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
-        const hashArray = Array.from(new Uint8Array(hashBuffer));
-        const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-        return hashHex;
+        return Array.from(new Uint8Array(hashBuffer)).map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
-    // 初始化正確雜湊（使用密碼 "1728"）
     async function initPasswordHash() {
         CORRECT_HASH = await sha256("1728");
     }
 
-    // 登入邏輯
     let isLoggedIn = false;
     async function teacherLogin() {
         const pwd = document.getElementById('teacherPwd').value;
-        if (!pwd) {
-            alert("請輸入密碼");
-            return;
-        }
+        if (!pwd) { alert("請輸入密碼"); return; }
         const inputHash = await sha256(pwd);
         if (inputHash === CORRECT_HASH) {
             isLoggedIn = true;
@@ -167,158 +159,265 @@
         document.getElementById('logoutBtn').style.display = 'none';
     }
 
-    // ==================== 完整 150 題選擇題庫 ====================
-    const CHOICE_QUESTION_POOL = [
-        { text: "下列何者屬於「感知」功能？", options: ["儀表板顯示數據", "感測器量測水質", "自動啟動設備", "AI預測結果"], correct: 1 },
-        { text: "「監控」的主要功能為何？", options: ["控制設備", "蒐集資料", "即時呈現資料", "預測未來"], correct: 2 },
-        { text: "自動灌溉系統依土壤濕度啟動，屬於哪一功能？", options: ["感知", "監控", "自動", "智慧"], correct: 2 },
-        { text: "利用AI預測交通壅塞屬於：", options: ["感知", "監控", "自動", "智慧"], correct: 3 },
-        { text: "下列何者不屬於物聯網功能？", options: ["感知", "控制", "智慧", "監控"], correct: 1 },
-        { text: "pH感測器主要用途為：", options: ["測量溫度", "測量酸鹼值", "測量流量", "測量光照"], correct: 1 },
-        { text: "溶氧感測器常用於：", options: ["空氣品質", "水質監測", "交通流量", "網路速度"], correct: 1 },
-        { text: "僅依賴人工觀察的缺點為：", options: ["成本高", "數據不即時", "精準度高", "自動化高"], correct: 1 },
-        { text: "感測器安裝位置錯誤會造成：", options: ["系統變快", "數據失真", "成本降低", "功能增加"], correct: 1 },
-        { text: "多感測器系統的優點為：", options: ["減少資料", "提升準確性", "降低效率", "無差異"], correct: 1 },
-        { text: "Web Dashboard屬於：", options: ["感知", "監控", "自動", "智慧"], correct: 1 },
-        { text: "即時警報功能的主要目的為：", options: ["儲存資料", "提醒異常", "控制設備", "預測結果"], correct: 1 },
-        { text: "僅本地儲存資料的缺點為：", options: ["安全性高", "無法遠端監控", "成本高", "精度高"], correct: 1 },
-        { text: "圖表化數據的優點為：", options: ["減少資料", "易於理解", "增加成本", "無作用"], correct: 1 },
-        { text: "API主要用途為：", options: ["控制電源", "系統整合", "感測資料", "影像處理"], correct: 1 },
-        { text: "水位過低啟動水泵屬於：", options: ["感知", "監控", "自動控制", "智慧分析"], correct: 2 },
-        { text: "完全手動操作的缺點為：", options: ["成本高", "無效率", "無自動化", "精度高"], correct: 2 },
-        { text: "控制邏輯未設定會導致：", options: ["系統更穩定", "無法運作", "自動優化", "成本降低"], correct: 1 },
-        { text: "自動備援系統的目的為：", options: ["增加資料", "提升可靠性", "減少設備", "無用途"], correct: 1 },
-        { text: "自動控制的核心為：", options: ["人工判斷", "預設規則", "手動操作", "無需資料"], correct: 1 },
-        { text: "AI模型的主要功能為：", options: ["顯示資料", "預測與分析", "控制硬體", "儲存資料"], correct: 1 },
-        { text: "使用歷史資料分析屬於：", options: ["感知", "監控", "自動", "智慧"], correct: 3 },
-        { text: "AI未經驗證的問題為：", options: ["成本低", "準確性不足", "效率高", "無影響"], correct: 1 },
-        { text: "整合氣象資料的好處為：", options: ["增加成本", "提升預測準確", "減少資料", "無用途"], correct: 1 },
-        { text: "下列何者為智慧應用？", options: ["開關電源", "數據顯示", "預測用水量", "感測溫度"], correct: 2 },
-        { text: "人機協作中，人類主要負責：", options: ["所有工作", "決策與監督", "感測", "傳輸"], correct: 1 },
-        { text: "邊緣設備主要負責：", options: ["AI訓練", "即時控制", "長期分析", "視覺設計"], correct: 1 },
-        { text: "雲端系統的功能為：", options: ["現場控制", "資料分析", "感測", "電力供應"], correct: 1 },
-        { text: "完全由AI控制的風險為：", options: ["成本低", "缺乏人為監督", "效率高", "精度高"], correct: 1 },
-        { text: "良好人機協作應具備：", options: ["完全自動", "完全人工", "明確分工", "無需資料"], correct: 2 },
-        { text: "「邊緣運算」的主要優點是？", options: ["降低延遲", "增加成本", "減少隱私", "降低速度"], correct: 0 },
-        { text: "下列何者是低功耗廣域網路技術？", options: ["Wi-Fi", "藍牙", "LoRa", "5G"], correct: 2 },
-        { text: "MQTT協定常用於？", options: ["即時通訊", "檔案傳輸", "物聯網設備通訊", "網頁瀏覽"], correct: 2 },
-        { text: "下列何者是生成式AI的應用？", options: ["圖像識別", "文本生成", "數據分析", "病毒掃描"], correct: 1 },
-        { text: "物聯網的「智慧」層主要依靠什麼技術？", options: ["感測器", "雲端儲存", "人工智慧", "網路傳輸"], correct: 2 },
-        { text: "人機協作中，邊緣設備最適合處理？", options: ["長期數據分析", "即時控制反應", "全域優化", "深度學習訓練"], correct: 1 },
-        { text: "物聯網感知層的常見通訊協定是？", options: ["HTTP", "MQTT", "FTP", "SMTP"], correct: 1 },
-        { text: "以下何者不是物聯網的應用？", options: ["智慧電網", "智慧家庭", "傳統農耕", "智慧交通"], correct: 2 },
-        { text: "以下哪種技術最適合短距離、低功耗的物聯網裝置？", options: ["5G", "Wi-Fi", "藍牙低功耗", "衛星通訊"], correct: 2 },
-        { text: "RFID 技術主要用於？", options: ["影像辨識", "無線識別與追蹤", "語音控制", "數據分析"], correct: 1 },
-        { text: "在智慧農業中，下列何者不屬於環境感知？", options: ["土壤濕度", "病蟲害影像", "農產品價格", "氣象數據"], correct: 2 },
-        { text: "物聯網的「監控」功能不包括？", options: ["即時數據顯示", "異常警報", "設備自動修復", "趨勢圖表"], correct: 2 },
-        { text: "智慧家庭的「自動控制」不包含？", options: ["自動調整空調", "自動鎖門", "自動購物", "自動開關窗簾"], correct: 2 },
-        { text: "雲端平台在物聯網中的角色是？", options: ["感測資料", "數據儲存與分析", "執行控制", "電力供應"], correct: 1 },
-        { text: "邊緣運算的主要優點是？", options: ["降低延遲", "增加成本", "簡化架構", "減少設備"], correct: 0 },
-        { text: "5G 的三大特性不包括？", options: ["高頻寬", "低延遲", "大規模連接", "低功耗"], correct: 3 },
-        { text: "NB-IoT 適合的應用場景是？", options: ["即時遊戲", "智慧電表", "自動駕駛", "虛擬實境"], correct: 1 },
-        { text: "LoRa 技術的主要特色是？", options: ["高速傳輸", "長距離低功耗", "即時控制", "高安全性"], correct: 1 },
-        { text: "物聯網安全威脅中，DDoS 攻擊主要影響？", options: ["感測器", "網路頻寬", "雲端服務", "使用者隱私"], correct: 1 },
-        { text: "以下哪種是物聯網常見的數據傳輸協定？", options: ["CoAP", "SMTP", "IMAP", "POP3"], correct: 0 },
-        { text: "在智慧交通中，V2X 指的是？", options: ["車輛對一切通訊", "車輛對車輛", "車輛對基礎設施", "車輛對行人"], correct: 0 },
-        { text: "智慧城市的「移動即服務」是指？", options: ["共享單車", "整合多種交通方式的服務平台", "無人計程車", "自動駕駛公車"], correct: 1 },
-        { text: "以下哪種感測器用於測量土壤酸鹼值？", options: ["pH 感測器", "EC 感測器", "溫度感測器", "濕度感測器"], correct: 0 },
-        { text: "智慧養殖中，下列何者不是常見監測項目？", options: ["溶氧量", "水溫", "魚群體重", "pH值"], correct: 2 },
-        { text: "以下哪種技術可用於作物病害影像辨識？", options: ["GPS", "深度學習", "RFID", "LoRa"], correct: 1 },
-        { text: "精準農業的目標是？", options: ["提高產量", "降低資源浪費", "減少人力", "以上皆是"], correct: 3 },
-        { text: "智慧灌溉系統的核心是？", options: ["自動噴頭", "土壤濕度感測與控制邏輯", "太陽能板", "遠端監控"], correct: 1 },
-        { text: "人機協作中，AI 的角色不包含？", options: ["數據分析", "決策建議", "完全取代人類", "異常預警"], correct: 2 },
-        { text: "邊緣設備在智慧工廠中主要負責？", options: ["長期數據分析", "即時設備控制", "企業資源規劃", "產品設計"], correct: 1 },
-        { text: "雲端 AI 在智慧農業中的應用是？", options: ["即時開關水閥", "病蟲害擴散預測", "土壤濕度感測", "農機操作"], correct: 1 },
-        { text: "物聯網的「智慧」層需要哪種技術？", options: ["感測器", "機器學習", "藍牙", "雲端儲存"], correct: 1 },
-        { text: "以下何者是物聯網的挑戰？", options: ["標準化", "安全性", "能源效率", "以上皆是"], correct: 3 },
-        { text: "智慧路燈的「感知」功能是？", options: ["自動開關", "偵測車流與空氣品質", "亮度調節", "遠端控制"], correct: 1 },
-        { text: "以下哪種技術用於物聯網設備定位？", options: ["GPS", "Wi-Fi", "藍牙", "以上皆是"], correct: 3 },
-        { text: "物聯網平台的核心價值是？", options: ["硬體製造", "數據整合與分析", "網路服務", "終端設備"], correct: 1 },
-        { text: "以下何者不是物聯網的典型架構層級？", options: ["感知層", "網路層", "應用層", "顯示層"], correct: 3 },
-        { text: "M2M 通訊是指？", options: ["機器對機器", "人對機器", "機器對人", "人對人"], correct: 0 },
-        { text: "智慧家庭中，自動控制可以做到？", options: ["根據時間自動開燈", "根據溫度自動調空調", "根據人數自動調整能耗", "以上皆是"], correct: 3 },
-        { text: "以下哪種感測器用於測量水中懸浮固體？", options: ["濁度感測器", "pH 感測器", "導電度計", "溶氧感測器"], correct: 0 },
-        { text: "在物聯網中，「數位孿生」是指？", options: ["實體設備的虛擬副本", "虛擬實境", "數位貨幣", "雲端備份"], correct: 0 },
-        { text: "以下哪種技術適用於物聯網設備的遠端韌體更新？", options: ["OTA", "FTP", "HTTP", "SMTP"], correct: 0 },
-        { text: "智慧停車系統的「監控」功能是？", options: ["感測車位狀態", "顯示空位資訊", "自動收費", "導引車輛"], correct: 1 },
-        { text: "物聯網的「自動控制」需要依賴？", options: ["感測數據與規則", "人工操作", "隨機選擇", "外部電源"], correct: 0 },
-        { text: "以下哪種是物聯網設備常見的供電方式？", options: ["電池", "太陽能", "有線電源", "以上皆是"], correct: 3 },
-        { text: "智慧農業中，無人機的主要用途是？", options: ["農藥噴灑", "作物巡檢", "播種", "以上皆是"], correct: 3 },
-        { text: "以下何者不是智慧城市中的物聯網應用？", options: ["智慧電網", "智慧路燈", "智慧郵箱", "傳統水錶"], correct: 3 },
-        { text: "物聯網設備的「即時性」主要取決於？", options: ["感測器精度", "網路延遲", "電池容量", "處理器速度"], correct: 1 },
-        { text: "以下哪種是物聯網安全的基本原則？", options: ["加密通訊", "設備認證", "存取控制", "以上皆是"], correct: 3 },
-        { text: "智慧電錶的主要效益是？", options: ["節省電費", "即時用電監控", "自動讀表", "以上皆是"], correct: 3 },
-        { text: "物聯網中的「邊緣節點」通常具備？", options: ["運算能力", "儲存能力", "通訊能力", "以上皆是"], correct: 3 },
-        { text: "以下何者是物聯網在醫療領域的應用？", options: ["遠距醫療", "穿戴式健康監測", "藥物管理", "以上皆是"], correct: 3 },
-        { text: "物聯網的「智慧」層需要哪種分析技術？", options: ["描述性分析", "診斷性分析", "預測性分析", "以上皆是"], correct: 3 },
-        { text: "以下哪種是物聯網設備的常見通訊距離？", options: ["短距離", "中距離", "長距離", "以上皆是"], correct: 3 },
-        { text: "智慧物流中，RFID 的主要用途是？", options: ["貨物追蹤", "溫度監控", "路線規劃", "司機管理"], correct: 0 },
-        { text: "以下何者是物聯網平台應具備的功能？", options: ["設備管理", "數據視覺化", "規則引擎", "以上皆是"], correct: 3 },
-        { text: "物聯網的「監控」功能不包括？", options: ["歷史數據查詢", "即時警報", "自動修復", "數據下載"], correct: 2 },
-        { text: "以下哪種感測器用於測量土壤電導度？", options: ["EC 感測器", "pH 感測器", "溫度感測器", "濕度感測器"], correct: 0 },
-        { text: "智慧家居中，語音助理屬於哪一層？", options: ["感知層", "網路層", "應用層", "控制層"], correct: 2 },
-        { text: "以下何者是物聯網標準化組織？", options: ["IEEE", "IETF", "ITU", "以上皆是"], correct: 3 },
-        { text: "物聯網的「大規模連接」特性主要由哪種技術支持？", options: ["Wi-Fi", "5G mMTC", "藍牙", "Zigbee"], correct: 1 },
-        { text: "以下哪種是物聯網的商業模式？", options: ["設備銷售", "數據服務", "平台訂閱", "以上皆是"], correct: 3 },
-        { text: "智慧工廠中，預測性維護屬於哪一層？", options: ["感知", "監控", "自動", "智慧"], correct: 3 },
-        { text: "以下何者是物聯網設備的能耗管理目標？", options: ["延長電池壽命", "降低運算負載", "減少通訊次數", "以上皆是"], correct: 3 },
-        { text: "物聯網的「感知層」不包括？", options: ["感測器", "攝影機", "雲端平台", "RFID 標籤"], correct: 2 },
-        { text: "以下哪種技術用於物聯網設備的低功耗廣域通訊？", options: ["NB-IoT", "LoRa", "Sigfox", "以上皆是"], correct: 3 },
-        { text: "智慧城市的「智慧」應用不包含？", options: ["交通優化", "能源管理", "傳統路燈", "垃圾清運優化"], correct: 2 },
-        { text: "以下哪種是物聯網在環境監測的應用？", options: ["空氣品質監測", "水質監測", "噪音監測", "以上皆是"], correct: 3 }
+    // ==================== 題庫（v2 2026-10-29）====================
+    // 每題：id 題號｜a 主軸｜t 題幹｜o 選項｜c 正解索引｜g 概念群組（同群組同卷最多 1 題，避免近似重複／互洩答案）
+    // 原 v1 題庫只有 97 題卻以「複製最後一題」補到 150 題，導致每張試卷都有重複題；v2 已移除補題並去除重複。
+    const BANK_RAW = [
+        {"id": "Q001", "a": "A", "t": "下列何者屬於「感知」功能？", "o": ["儀表板顯示數據", "感測器量測水質", "自動啟動設備", "AI預測結果"], "c": 1},
+        {"id": "Q002", "a": "B", "t": "「監控」的主要功能為何？", "o": ["控制設備", "蒐集資料", "即時呈現資料", "預測未來"], "c": 2},
+        {"id": "Q003", "a": "B", "t": "自動灌溉系統依土壤濕度啟動，屬於哪一功能？", "o": ["感知", "監控", "自動", "智慧"], "c": 2, "g": ["irrig"]},
+        {"id": "Q004", "a": "C", "t": "利用AI預測交通壅塞屬於：", "o": ["感知", "監控", "自動", "智慧"], "c": 3},
+        {"id": "Q005", "a": "E", "t": "下列何者不屬於物聯網功能？", "o": ["感知", "控制", "智慧", "監控"], "c": 1},
+        {"id": "Q006", "a": "A", "t": "pH感測器主要用途為：", "o": ["測量溫度", "測量酸鹼值", "測量流量", "測量光照"], "c": 1, "g": ["ph"]},
+        {"id": "Q007", "a": "A", "t": "溶氧感測器常用於：", "o": ["空氣品質", "水質監測", "交通流量", "網路速度"], "c": 1},
+        {"id": "Q008", "a": "A", "t": "僅依賴人工觀察的缺點為：", "o": ["成本高", "數據不即時", "精準度高", "自動化高"], "c": 1, "g": ["manual"]},
+        {"id": "Q009", "a": "A", "t": "感測器安裝位置錯誤會造成：", "o": ["系統變快", "數據失真", "成本降低", "功能增加"], "c": 1},
+        {"id": "Q010", "a": "A", "t": "多感測器系統的優點為：", "o": ["減少資料", "提升準確性", "降低效率", "無差異"], "c": 1},
+        {"id": "Q011", "a": "B", "t": "Web Dashboard屬於：", "o": ["感知", "監控", "自動", "智慧"], "c": 1},
+        {"id": "Q012", "a": "B", "t": "即時警報功能的主要目的為：", "o": ["儲存資料", "提醒異常", "控制設備", "預測結果"], "c": 1},
+        {"id": "Q013", "a": "B", "t": "僅本地儲存資料的缺點為：", "o": ["安全性高", "無法遠端監控", "成本高", "精度高"], "c": 1},
+        {"id": "Q014", "a": "B", "t": "圖表化數據的優點為：", "o": ["減少資料", "易於理解", "增加成本", "無作用"], "c": 1},
+        {"id": "Q015", "a": "D", "t": "API主要用途為：", "o": ["控制電源", "系統整合", "感測資料", "影像處理"], "c": 1},
+        {"id": "Q016", "a": "B", "t": "水位過低啟動水泵屬於：", "o": ["感知", "監控", "自動控制", "智慧分析"], "c": 2},
+        {"id": "Q017", "a": "B", "t": "完全手動操作的缺點為：", "o": ["反應最即時", "可遠端操作", "無法自動化", "資料自動記錄"], "c": 2, "g": ["manual"]},
+        {"id": "Q018", "a": "B", "t": "控制邏輯未設定會導致：", "o": ["系統更穩定", "無法運作", "自動優化", "成本降低"], "c": 1},
+        {"id": "Q019", "a": "B", "t": "自動備援系統的目的為：", "o": ["增加資料", "提升可靠性", "減少設備", "無用途"], "c": 1},
+        {"id": "Q020", "a": "B", "t": "自動控制的核心為：", "o": ["人工判斷", "預設規則", "手動操作", "無需資料"], "c": 1, "g": ["auto_ctl"]},
+        {"id": "Q021", "a": "C", "t": "AI模型的主要功能為：", "o": ["顯示資料", "預測與分析", "控制硬體", "儲存資料"], "c": 1},
+        {"id": "Q022", "a": "C", "t": "使用歷史資料分析屬於：", "o": ["感知", "監控", "自動", "智慧"], "c": 3},
+        {"id": "Q023", "a": "C", "t": "AI未經驗證的問題為：", "o": ["成本低", "準確性不足", "效率高", "無影響"], "c": 1, "g": ["verify"]},
+        {"id": "Q024", "a": "C", "t": "整合氣象資料的好處為：", "o": ["增加成本", "提升預測準確", "減少資料", "無用途"], "c": 1},
+        {"id": "Q025", "a": "C", "t": "下列何者為智慧應用？", "o": ["開關電源", "數據顯示", "預測用水量", "感測溫度"], "c": 2},
+        {"id": "Q026", "a": "F", "t": "人機協作中，人類主要負責：", "o": ["所有工作", "決策與監督", "感測", "傳輸"], "c": 1, "g": ["human_role"]},
+        {"id": "Q027", "a": "D", "t": "邊緣設備主要負責：", "o": ["AI訓練", "即時控制", "長期分析", "視覺設計"], "c": 1, "g": ["edge_role"]},
+        {"id": "Q028", "a": "D", "t": "雲端系統的功能為：", "o": ["現場控制", "資料分析", "感測", "電力供應"], "c": 1, "g": ["cloud"]},
+        {"id": "Q029", "a": "F", "t": "完全由AI控制的風險為：", "o": ["成本低", "缺乏人為監督", "效率高", "精度高"], "c": 1, "g": ["oversight"]},
+        {"id": "Q030", "a": "F", "t": "良好人機協作應具備：", "o": ["完全自動", "完全人工", "明確分工", "無需資料"], "c": 2},
+        {"id": "Q031", "a": "D", "t": "「邊緣運算」的主要優點是？", "o": ["降低延遲", "增加成本", "減少隱私", "降低速度"], "c": 0},
+        {"id": "Q032", "a": "D", "t": "下列何者是低功耗廣域網路技術？", "o": ["Wi-Fi", "藍牙", "LoRa", "5G"], "c": 2, "g": ["lpwan"]},
+        {"id": "Q033", "a": "D", "t": "MQTT協定常用於？", "o": ["即時通訊", "檔案傳輸", "物聯網設備通訊", "網頁瀏覽"], "c": 2, "g": ["mqtt"]},
+        {"id": "Q034", "a": "C", "t": "下列何者是生成式AI的應用？", "o": ["圖像識別", "文本生成", "數據分析", "病毒掃描"], "c": 1},
+        {"id": "Q035", "a": "C", "t": "物聯網的「智慧」層主要依靠什麼技術？", "o": ["感測器", "雲端儲存", "人工智慧", "網路傳輸"], "c": 2, "g": ["smart"]},
+        {"id": "Q036", "a": "D", "t": "人機協作中，邊緣設備最適合處理？", "o": ["長期數據分析", "即時控制反應", "全域優化", "深度學習訓練"], "c": 1, "g": ["edge_role"]},
+        {"id": "Q037", "a": "D", "t": "物聯網裝置上傳感測資料常用的輕量級通訊協定是？", "o": ["HTTP", "MQTT", "FTP", "SMTP"], "c": 1, "g": ["mqtt"]},
+        {"id": "Q038", "a": "E", "t": "以下何者不是物聯網的應用？", "o": ["智慧電網", "智慧家庭", "傳統農耕", "智慧交通"], "c": 2, "g": ["not_iot"]},
+        {"id": "Q039", "a": "D", "t": "以下哪種技術最適合短距離、低功耗的物聯網裝置？", "o": ["5G", "Wi-Fi", "藍牙低功耗", "衛星通訊"], "c": 2},
+        {"id": "Q040", "a": "D", "t": "RFID 技術主要用於？", "o": ["影像辨識", "無線識別與追蹤", "語音控制", "數據分析"], "c": 1, "g": ["rfid"]},
+        {"id": "Q041", "a": "A", "t": "在智慧農業中，下列何者不屬於環境感知？", "o": ["土壤濕度", "病蟲害影像", "農產品價格", "氣象數據"], "c": 2},
+        {"id": "Q042", "a": "B", "t": "物聯網的「監控」功能不包括？", "o": ["即時數據顯示", "異常警報", "設備自動修復", "趨勢圖表"], "c": 2},
+        {"id": "Q043", "a": "B", "t": "智慧家庭的「自動控制」不包含？", "o": ["自動調整空調", "自動鎖門", "自動購物", "自動開關窗簾"], "c": 2, "g": ["home_auto"]},
+        {"id": "Q044", "a": "D", "t": "雲端平台在物聯網中的角色是？", "o": ["感測資料", "數據儲存與分析", "執行控制", "電力供應"], "c": 1, "g": ["cloud"]},
+        {"id": "Q046", "a": "D", "t": "5G 的三大特性不包括？", "o": ["高頻寬", "低延遲", "大規模連接", "低功耗"], "c": 3, "g": ["g5"]},
+        {"id": "Q047", "a": "D", "t": "NB-IoT 適合的應用場景是？", "o": ["即時遊戲", "智慧電表", "自動駕駛", "虛擬實境"], "c": 1},
+        {"id": "Q048", "a": "D", "t": "LoRa 技術的主要特色是？", "o": ["高速傳輸", "長距離低功耗", "即時控制", "高安全性"], "c": 1, "g": ["lpwan"]},
+        {"id": "Q049", "a": "D", "t": "物聯網安全威脅中，DDoS 攻擊主要影響？", "o": ["感測器", "網路頻寬", "雲端服務", "使用者隱私"], "c": 1},
+        {"id": "Q050", "a": "D", "t": "以下哪種是物聯網常見的數據傳輸協定？", "o": ["CoAP", "SMTP", "IMAP", "POP3"], "c": 0},
+        {"id": "Q051", "a": "D", "t": "在智慧交通中，V2X 指的是？", "o": ["車輛對一切通訊", "車輛對車輛", "車輛對基礎設施", "車輛對行人"], "c": 0},
+        {"id": "Q052", "a": "E", "t": "智慧城市的「移動即服務」是指？", "o": ["共享單車", "整合多種交通方式的服務平台", "無人計程車", "自動駕駛公車"], "c": 1},
+        {"id": "Q053", "a": "A", "t": "以下哪種感測器用於測量土壤酸鹼值？", "o": ["pH 感測器", "EC 感測器", "溫度感測器", "濕度感測器"], "c": 0, "g": ["ph"]},
+        {"id": "Q054", "a": "A", "t": "智慧養殖中，下列何者不是常見監測項目？", "o": ["溶氧量", "水溫", "魚群體重", "pH值"], "c": 2},
+        {"id": "Q055", "a": "C", "t": "以下哪種技術可用於作物病害影像辨識？", "o": ["GPS", "深度學習", "RFID", "LoRa"], "c": 1},
+        {"id": "Q056", "a": "E", "t": "精準農業的目標是？", "o": ["提高產量", "降低資源浪費", "減少人力", "以上皆是"], "c": 3},
+        {"id": "Q057", "a": "B", "t": "智慧灌溉系統的核心是？", "o": ["自動噴頭", "土壤濕度感測與控制邏輯", "太陽能板", "遠端監控"], "c": 1, "g": ["irrig"]},
+        {"id": "Q058", "a": "F", "t": "人機協作中，AI 的角色不包含？", "o": ["數據分析", "決策建議", "完全取代人類", "異常預警"], "c": 2},
+        {"id": "Q059", "a": "D", "t": "邊緣設備在智慧工廠中主要負責？", "o": ["長期數據分析", "即時設備控制", "企業資源規劃", "產品設計"], "c": 1, "g": ["edge_role"]},
+        {"id": "Q060", "a": "C", "t": "雲端 AI 在智慧農業中的應用是？", "o": ["即時開關水閥", "病蟲害擴散預測", "土壤濕度感測", "農機操作"], "c": 1},
+        {"id": "Q062", "a": "E", "t": "以下何者是物聯網的挑戰？", "o": ["標準化", "安全性", "能源效率", "以上皆是"], "c": 3},
+        {"id": "Q063", "a": "A", "t": "智慧路燈的「感知」功能是？", "o": ["自動開關", "偵測車流與空氣品質", "亮度調節", "遠端控制"], "c": 1},
+        {"id": "Q064", "a": "D", "t": "以下哪種技術用於物聯網設備定位？", "o": ["GPS", "Wi-Fi", "藍牙", "以上皆是"], "c": 3},
+        {"id": "Q065", "a": "D", "t": "物聯網平台的核心價值是？", "o": ["硬體製造", "數據整合與分析", "網路服務", "終端設備"], "c": 1},
+        {"id": "Q066", "a": "D", "t": "以下何者不是物聯網的典型架構層級？", "o": ["感知層", "網路層", "應用層", "顯示層"], "c": 3},
+        {"id": "Q067", "a": "D", "t": "M2M 通訊是指？", "o": ["機器對機器", "人對機器", "機器對人", "人對人"], "c": 0},
+        {"id": "Q068", "a": "B", "t": "智慧家庭中，自動控制可以做到？", "o": ["根據時間自動開燈", "根據溫度自動調空調", "根據人數自動調整能耗", "以上皆是"], "c": 3, "g": ["home_auto"]},
+        {"id": "Q069", "a": "A", "t": "以下哪種感測器用於測量水中懸浮固體？", "o": ["濁度感測器", "pH 感測器", "導電度計", "溶氧感測器"], "c": 0},
+        {"id": "Q070", "a": "C", "t": "在物聯網中，「數位孿生」是指？", "o": ["實體設備的虛擬副本", "虛擬實境", "數位貨幣", "雲端備份"], "c": 0},
+        {"id": "Q071", "a": "D", "t": "以下哪種技術適用於物聯網設備的遠端韌體更新？", "o": ["OTA", "FTP", "HTTP", "SMTP"], "c": 0},
+        {"id": "Q072", "a": "B", "t": "智慧停車系統的「監控」功能是？", "o": ["感測車位狀態", "顯示空位資訊", "自動收費", "導引車輛"], "c": 1},
+        {"id": "Q073", "a": "B", "t": "物聯網的「自動控制」需要依賴？", "o": ["感測數據與規則", "人工操作", "隨機選擇", "外部電源"], "c": 0, "g": ["auto_ctl"]},
+        {"id": "Q074", "a": "E", "t": "以下哪種是物聯網設備常見的供電方式？", "o": ["電池", "太陽能", "有線電源", "以上皆是"], "c": 3},
+        {"id": "Q075", "a": "E", "t": "智慧農業中，無人機的主要用途是？", "o": ["農藥噴灑", "作物巡檢", "播種", "以上皆是"], "c": 3},
+        {"id": "Q076", "a": "E", "t": "以下何者不是智慧城市中的物聯網應用？", "o": ["智慧電網", "智慧路燈", "智慧郵箱", "傳統水錶"], "c": 3, "g": ["not_iot"]},
+        {"id": "Q077", "a": "D", "t": "物聯網設備的「即時性」主要取決於？", "o": ["感測器精度", "網路延遲", "電池容量", "處理器速度"], "c": 1},
+        {"id": "Q078", "a": "D", "t": "以下哪種是物聯網安全的基本原則？", "o": ["加密通訊", "設備認證", "存取控制", "以上皆是"], "c": 3},
+        {"id": "Q079", "a": "E", "t": "智慧電錶的主要效益是？", "o": ["節省電費", "即時用電監控", "自動讀表", "以上皆是"], "c": 3},
+        {"id": "Q080", "a": "D", "t": "物聯網中的「邊緣節點」通常具備？", "o": ["運算能力", "儲存能力", "通訊能力", "以上皆是"], "c": 3},
+        {"id": "Q081", "a": "E", "t": "以下何者是物聯網在醫療領域的應用？", "o": ["遠距醫療", "穿戴式健康監測", "藥物管理", "以上皆是"], "c": 3},
+        {"id": "Q082", "a": "C", "t": "物聯網的「智慧」層需要哪種分析技術？", "o": ["描述性分析", "診斷性分析", "預測性分析", "以上皆是"], "c": 3, "g": ["smart"]},
+        {"id": "Q083", "a": "D", "t": "以下哪種是物聯網設備的常見通訊距離？", "o": ["短距離", "中距離", "長距離", "以上皆是"], "c": 3},
+        {"id": "Q084", "a": "D", "t": "智慧物流中，RFID 的主要用途是？", "o": ["貨物追蹤", "溫度監控", "路線規劃", "司機管理"], "c": 0, "g": ["rfid"]},
+        {"id": "Q085", "a": "D", "t": "以下何者是物聯網平台應具備的功能？", "o": ["設備管理", "數據視覺化", "規則引擎", "以上皆是"], "c": 3},
+        {"id": "Q087", "a": "A", "t": "以下哪種感測器用於測量土壤電導度？", "o": ["EC 感測器", "pH 感測器", "溫度感測器", "濕度感測器"], "c": 0},
+        {"id": "Q088", "a": "D", "t": "智慧家居中，語音助理屬於哪一層？", "o": ["感知層", "網路層", "應用層", "控制層"], "c": 2},
+        {"id": "Q089", "a": "D", "t": "以下何者是物聯網標準化組織？", "o": ["IEEE", "IETF", "ITU", "以上皆是"], "c": 3},
+        {"id": "Q090", "a": "D", "t": "物聯網的「大規模連接」特性主要由哪種技術支持？", "o": ["Wi-Fi", "5G mMTC", "藍牙", "Zigbee"], "c": 1, "g": ["g5"]},
+        {"id": "Q091", "a": "E", "t": "以下哪種是物聯網的商業模式？", "o": ["設備銷售", "數據服務", "平台訂閱", "以上皆是"], "c": 3},
+        {"id": "Q092", "a": "C", "t": "智慧工廠中，預測性維護屬於哪一層？", "o": ["感知", "監控", "自動", "智慧"], "c": 3},
+        {"id": "Q093", "a": "D", "t": "以下何者是物聯網設備的能耗管理目標？", "o": ["延長電池壽命", "降低運算負載", "減少通訊次數", "以上皆是"], "c": 3},
+        {"id": "Q094", "a": "A", "t": "物聯網的「感知層」不包括？", "o": ["感測器", "攝影機", "雲端平台", "RFID 標籤"], "c": 2},
+        {"id": "Q095", "a": "D", "t": "以下哪種技術用於物聯網設備的低功耗廣域通訊？", "o": ["NB-IoT", "LoRa", "Sigfox", "以上皆是"], "c": 3, "g": ["lpwan"]},
+        {"id": "Q096", "a": "E", "t": "智慧城市的「智慧」應用不包含？", "o": ["交通優化", "能源管理", "傳統路燈", "垃圾清運優化"], "c": 2, "g": ["not_iot"]},
+        {"id": "Q097", "a": "E", "t": "以下哪種是物聯網在環境監測的應用？", "o": ["空氣品質監測", "水質監測", "噪音監測", "以上皆是"], "c": 3},
+        {"id": "H01", "a": "F", "t": "「人在迴路中」（Human-in-the-Loop, HITL）的主要特徵是？", "o": ["AI 先提出結果，須經人類確認或修改後才執行", "系統只負責儲存資料，不做任何判斷", "人類只負責設備的電源與網路維護", "系統執行後，人類只在學期末查看報表"], "c": 0, "g": ["def1"]},
+        {"id": "H02", "a": "F", "t": "「人在迴路上」（Human-on-the-Loop, HOTL）的主要特徵是？", "o": ["系統自主執行，人類持續監看，必要時可介入或叫停", "系統只在故障時發出聲響，平時不提供任何資訊", "人類事先寫好所有答案，系統只負責顯示", "系統無法連網，只能離線運作"], "c": 0, "g": ["def2"]},
+        {"id": "H03", "a": "F", "t": "「人在迴路外」（Human-out-of-the-Loop, HOOTL）的主要特徵是？", "o": ["系統自主完成感知、判斷與執行，運作當下沒有人即時介入", "系統只負責把資料顯示在儀表板上", "由人類以遙控器操作系統的每一個動作", "系統必須等雲端管理員上線才能啟動"], "c": 0, "g": ["def3"]},
+        {"id": "H04", "a": "F", "t": "關於 HITL、HOTL、HOOTL 的敘述，下列何者正確？", "o": ["HITL 人在決策前把關；HOTL 人在執行中監督；HOOTL 運作時無人即時介入", "HITL 完全沒有人參與；HOTL 人逐筆審核；HOOTL 人在旁監看", "三者的差別只在 AI 模型的大小", "HOOTL 一定比 HITL 更安全"], "c": 0, "g": ["def1", "def2", "def3"]},
+        {"id": "H05", "a": "F", "t": "依「運作中人類介入程度」由高到低排列，正確的是？", "o": ["HITL ＞ HOTL ＞ HOOTL", "HOOTL ＞ HOTL ＞ HITL", "HOTL ＞ HITL ＞ HOOTL", "三者的人類介入程度相同"], "c": 0},
+        {"id": "H06", "a": "F", "t": "人機協作模式名稱中的「迴路（loop）」指的是？", "o": ["系統「感知→判斷→行動→回饋」的決策循環", "連接電腦的實體電線", "程式語言中的 for 迴圈語法", "網路封包的傳送路徑"], "c": 0},
+        {"id": "H07", "a": "F", "t": "AI 先標出疑似病蟲害的葉片照片，由植物醫生逐張確認後才開立防治處方，屬於哪一種人機協作模式？", "o": ["HITL（人在迴路中）", "HOTL（人在迴路上）", "HOOTL（人在迴路外）", "純人工作業（無自動化）"], "c": 0},
+        {"id": "H08", "a": "F", "t": "養殖池溶氧低於門檻時，系統自動開啟打氣機；養殖戶在手機儀表板監看，必要時可手動關閉，屬於哪一種模式？", "o": ["HITL（人在迴路中）", "HOTL（人在迴路上）", "HOOTL（人在迴路外）", "純人工作業（無自動化）"], "c": 1},
+        {"id": "H09", "a": "F", "t": "汽車發生碰撞時，安全氣囊在數十毫秒內自動引爆，屬於哪一種模式？", "o": ["HITL（人在迴路中）", "HOTL（人在迴路上）", "HOOTL（人在迴路外）", "純人工作業（無自動化）"], "c": 2, "g": ["veh_auto"]},
+        {"id": "H10", "a": "F", "t": "老師用 AI 起草作業評語，逐份閱讀、修改後才發給學生，屬於哪一種模式？", "o": ["HITL（人在迴路中）", "HOTL（人在迴路上）", "HOOTL（人在迴路外）", "純人工作業（無自動化）"], "c": 0},
+        {"id": "H11", "a": "F", "t": "產線視覺檢測系統自動剔除瑕疵品，品管工程師在監控室觀看即時統計，發現誤剔率異常時可暫停產線，屬於哪一種模式？", "o": ["HITL（人在迴路中）", "HOTL（人在迴路上）", "HOOTL（人在迴路外）", "純人工作業（無自動化）"], "c": 1},
+        {"id": "H12", "a": "F", "t": "SAE Level 2（部分自動化）車輛由系統控制轉向與加減速，但駕駛必須持續注意路況、隨時接手，駕駛的角色最接近哪一種模式？", "o": ["HITL（人在迴路中）", "HOTL（人在迴路上）", "HOOTL（人在迴路外）", "純人工作業（無自動化）"], "c": 1, "g": ["sae"]},
+        {"id": "H13", "a": "F", "t": "SAE Level 4（高度自動化）車輛在限定區域內行駛，系統不需要駕駛接手，在該區域內最接近哪一種模式？", "o": ["HITL（人在迴路中）", "HOTL（人在迴路上）", "HOOTL（人在迴路外）", "純人工作業（無自動化）"], "c": 2, "g": ["sae"]},
+        {"id": "H14", "a": "F", "t": "銀行的 AI 只提供貸款風險評分建議，是否核貸由行員最後決定，屬於哪一種模式？", "o": ["HITL（人在迴路中）", "HOTL（人在迴路上）", "HOOTL（人在迴路外）", "純人工作業（無自動化）"], "c": 0},
+        {"id": "H15", "a": "F", "t": "路口號誌依車流自動調整秒數，交控中心人員監看即時畫面並可手動切換，屬於哪一種模式？", "o": ["HITL（人在迴路中）", "HOTL（人在迴路上）", "HOOTL（人在迴路外）", "純人工作業（無自動化）"], "c": 1},
+        {"id": "H16", "a": "F", "t": "心律調節器依心跳狀況即時自動發出電刺激，屬於哪一種模式？", "o": ["HITL（人在迴路中）", "HOTL（人在迴路上）", "HOOTL（人在迴路外）", "純人工作業（無自動化）"], "c": 2},
+        {"id": "H17", "a": "F", "t": "學生把程式碼交給 AI 除錯，AI 列出修改建議，學生逐行理解後才決定是否採用，屬於哪一種模式？", "o": ["HITL（人在迴路中）", "HOTL（人在迴路上）", "HOOTL（人在迴路外）", "純人工作業（無自動化）"], "c": 0},
+        {"id": "H18", "a": "F", "t": "無人機自動規劃航線巡檢農田，但每次噴灑農藥前都要操作員核准，「噴藥」這個環節屬於哪一種模式？", "o": ["HITL（人在迴路中）", "HOTL（人在迴路上）", "HOOTL（人在迴路外）", "純人工作業（無自動化）"], "c": 0},
+        {"id": "H19", "a": "F", "t": "緊急煞車時，防鎖死煞車系統（ABS）每秒多次自動調整煞車力道，屬於哪一種模式？", "o": ["HITL（人在迴路中）", "HOTL（人在迴路上）", "HOOTL（人在迴路外）", "純人工作業（無自動化）"], "c": 2, "g": ["veh_auto"]},
+        {"id": "H20", "a": "F", "t": "智慧溫室的 AI 依天氣預報自動排程澆灌，農民每天查看報表、發現異常時修改設定，屬於哪一種模式？", "o": ["HITL（人在迴路中）", "HOTL（人在迴路上）", "HOOTL（人在迴路外）", "純人工作業（無自動化）"], "c": 1},
+        {"id": "H21", "a": "F", "t": "電網故障時常由系統在毫秒內自動隔離故障線路（HOOTL），主要原因是？", "o": ["需要的反應時間遠短於人類的反應速度", "電網故障不會造成任何損失", "電力公司沒有值班人員", "AI 模型越大越安全"], "c": 0, "g": ["mc_time"]},
+        {"id": "H22", "a": "F", "t": "AI 輔助醫療影像判讀多採用 HITL，最主要的原因是？", "o": ["誤判後果嚴重，需要醫師把關並承擔專業責任", "AI 完全無法辨識影像", "醫院沒有網路可上傳影像", "HITL 的處理速度最快"], "c": 0, "g": ["mc_sev"]},
+        {"id": "H23", "a": "F", "t": "決定一項任務該採 HITL、HOTL 或 HOOTL，最主要應考量？", "o": ["錯誤後果的嚴重性與所需的反應時間", "操作介面的顏色是否美觀", "AI 模型的檔案大小", "系統開發者的個人喜好"], "c": 0, "g": ["mc_time", "mc_sev"]},
+        {"id": "H24", "a": "F", "t": "下列哪一個情境「最不適合」採用 HOOTL？", "o": ["決定病人是否進行手術", "空調自動維持室內溫度", "掃地機器人規劃清掃路線", "手機依環境光自動調整螢幕亮度"], "c": 0, "g": ["fit"]},
+        {"id": "H25", "a": "F", "t": "下列哪一個情境「最適合」採用 HOOTL？", "o": ["影音平台自動推薦下一首歌曲", "法院決定被告是否羈押", "核電廠是否緊急停機的最終決策", "醫師開立化療處方"], "c": 0, "g": ["fit"]},
+        {"id": "H26", "a": "F", "t": "要讓 HOTL 中的人類能「有效監督」，系統最必要具備的是？", "o": ["即時、易懂的狀態資訊，以及隨時可用的介入或停止機制", "越多越好的動畫特效", "完全隱藏系統的判斷過程", "只在年底產生一份總報告"], "c": 0, "g": ["veto_a"]},
+        {"id": "H27", "a": "F", "t": "在 HOTL 情境中，人類監督者應有的做法是？", "o": ["定期抽查系統決策，發現偏離目標時及時介入調整", "系統開始運作後就不再查看", "把每個決策都親手重做一次", "關閉所有警報以免受到干擾"], "c": 0, "g": ["veto_b"]},
+        {"id": "H28", "a": "F", "t": "系統自動運作，但保留「緊急停止鈕／人工否決權」讓人隨時叫停，最能體現哪一種模式？", "o": ["HITL（人在迴路中）", "HOTL（人在迴路上）", "HOOTL（人在迴路外）", "純人工作業（無自動化）"], "c": 1, "g": ["veto_a", "veto_b"]},
+        {"id": "H29", "a": "F", "t": "HITL 模式最主要的限制是？", "o": ["人工審核容易成為瓶頸，速度與處理量受限", "完全沒有人為結果負責", "錯誤一定無法被發現", "操作者不需要任何專業知識"], "c": 0},
+        {"id": "H30", "a": "F", "t": "「自動化偏誤」（Automation Bias）是指？", "o": ["人過度相信自動化系統的輸出，忽略矛盾訊息或不再查核", "機器對某些使用者特別偏心", "自動化設備的機械加工誤差", "系統自動把資料由小到大排序"], "c": 0},
+        {"id": "H31", "a": "F", "t": "HOTL 監控中常見的「警報疲勞」，會造成什麼問題？", "o": ["警報太多，監督者開始忽略或延誤處理真正重要的警報", "警報器使用過久而故障", "監督者因加班而請假", "系統自動關閉所有感測器"], "c": 0},
+        {"id": "H32", "a": "F", "t": "「先思考、後驗證」的學習流程中，使用生成式 AI 的正確順序是？", "o": ["先自己拆解問題、寫下想法，再請 AI 產生結果，最後逐項查核修正", "先請 AI 給完整答案，再直接照抄繳交", "完全依賴 AI，不需要自己思考", "先繳交作業，之後再看 AI 怎麼寫"], "c": 0},
+        {"id": "H33", "a": "F", "t": "從 HITL 走向 HOTL（由「作」而「管」），對人的能力要求轉變為？", "o": ["從親自執行每個步驟，轉為設定目標、監控品質並適時介入", "從需要專業知識，轉為完全不需要知識", "從使用電腦，轉為只能使用紙本", "從團隊合作，轉為完全不與人溝通"], "c": 0},
+        {"id": "H34", "a": "F", "t": "長期把工作全部交給 AI（HOOTL），對人可能造成的風險是？", "o": ["技能退化，系統失效時無力接手", "打字速度一定變快", "電腦硬體壽命變長", "網路速度變慢"], "c": 0},
+        {"id": "H35", "a": "F", "t": "AI 的「可解釋性」（Explainability）對 HITL 的重要性在於？", "o": ["讓人類理解 AI 的判斷依據，才能做出有意義的確認或修正", "讓 AI 執行得更快", "讓畫面更美觀", "讓系統不需要任何資料"], "c": 0},
+        {"id": "H36", "a": "F", "t": "在 HITL 機器學習中，人類修正並標註 AI 判錯的樣本後回饋給模型，主要目的是？", "o": ["持續改善模型的準確度", "刪除所有訓練資料", "讓模型永遠不再更新", "降低感測器的耗電"], "c": 0},
+        {"id": "H37", "a": "F", "t": "要把「完全自動的智慧灌溉（HOOTL）」改成 HOTL，最直接的做法是？", "o": ["加上即時儀表板與異常警報，並保留人工停止／覆寫開關", "拆除所有感測器改用人工澆水", "每次澆水前都要農民按下確認鍵", "把澆水時間改成隨機"], "c": 0, "g": ["irrig_mode"]},
+        {"id": "H38", "a": "F", "t": "要讓智慧灌溉改為 HITL，最符合的設計是？", "o": ["系統提出灌溉建議，農民按下確認後才開啟水閥", "系統自動澆水，農民完全不知道", "拆除系統改用人工澆水", "依固定時間自動澆水，不看土壤濕度"], "c": 0, "g": ["irrig_mode"]},
+        {"id": "H39", "a": "F", "t": "學生把生成式 AI 寫的報告「未經查證」就直接繳交，最主要的問題是？", "o": ["缺少人類驗證，可能把錯誤內容當成事實", "報告字數一定不夠", "電腦會因此中毒", "報告排版一定很亂"], "c": 0, "g": ["verify"]},
+        {"id": "H40", "a": "F", "t": "生成式 AI 的「幻覺」（Hallucination）是指？", "o": ["產生看似合理、但與事實不符的內容", "AI 系統當機無法回應", "AI 產生視覺錯覺圖片", "AI 回答速度太慢"], "c": 0},
+        {"id": "H41", "a": "F", "t": "關於人機協作模式，下列敘述何者正確？", "o": ["同一個系統的不同功能，可以分別採用不同的協作模式", "一個系統只能採用一種協作模式", "HOOTL 一定比 HITL 更先進", "採用 HITL 代表 AI 能力不足、應該淘汰"], "c": 0},
+        {"id": "H42", "a": "F", "t": "歐盟《人工智慧法》（EU AI Act）對「高風險 AI 系統」的要求重點之一是？", "o": ["必須具備有效的人類監督機制", "禁止使用任何感測器", "必須完全由 AI 自主決策", "只能在夜間運作"], "c": 0, "g": ["oversight"]},
+        {"id": "H43", "a": "F", "t": "在 HITL 中由人類做最後確認，最重要的意義是？", "o": ["確保決策有人負責（可問責），並能修正 AI 的錯誤", "讓 AI 可以休息", "增加系統耗電量", "減少資料儲存空間"], "c": 0, "g": ["human_role"]}
     ];
-    // 補足到150題
-    while (CHOICE_QUESTION_POOL.length < 150) {
-        CHOICE_QUESTION_POOL.push(CHOICE_QUESTION_POOL[CHOICE_QUESTION_POOL.length-1]);
+
+    const AXIS_NAME = { A: "感知與資料", B: "監控與自動控制", C: "智慧與AI", D: "網路通訊與架構", E: "應用與產業", F: "人機協作 HITL／HOTL／HOOTL" };
+    const QUOTA = { A: 4, B: 5, C: 5, D: 6, E: 4, F: 6 };   // 每卷 30 題
+    const CHOICE_COUNT = Object.values(QUOTA).reduce((a, b) => a + b, 0);
+    const LAST_PAPER_KEY = "examOnline.lastPaper.v2";
+
+    const normStem = s => String(s).replace(/[「」『』（）()？?：:。，,、\s]/g, "");
+
+    // 載入時再防呆一次：同 id 或同題幹（正規化後）只留第一筆
+    const BANK = (() => {
+        const ids = new Set(), stems = new Set(), out = [];
+        BANK_RAW.forEach(q => {
+            const k = normStem(q.t);
+            if (ids.has(q.id) || stems.has(k)) { console.warn("[exam] 題庫重複已略過：", q.id, q.t); return; }
+            ids.add(q.id); stems.add(k); out.push(q);
+        });
+        return out;
+    })();
+
+    // ---------- 隨機（crypto 亂數＋Fisher–Yates）----------
+    function randInt(n) {
+        if (window.crypto && crypto.getRandomValues) {
+            const max = Math.floor(0x100000000 / n) * n, buf = new Uint32Array(1);
+            let x;
+            do { crypto.getRandomValues(buf); x = buf[0]; } while (x >= max);
+            return x % n;
+        }
+        return Math.floor(Math.random() * n);
+    }
+    function shuffle(arr) {
+        const a = arr.slice();
+        for (let i = a.length - 1; i > 0; i--) { const j = randInt(i + 1); [a[i], a[j]] = [a[j], a[i]]; }
+        return a;
     }
 
-    const CHOICE_COUNT = 30;
+    function readLastPaper() { try { return JSON.parse(localStorage.getItem(LAST_PAPER_KEY) || "[]"); } catch (e) { return []; } }
+    function writeLastPaper(ids) { try { localStorage.setItem(LAST_PAPER_KEY, JSON.stringify(ids)); } catch (e) {} }
+
+    // 試卷檢核：題數、各主軸題數、題號不重複、題幹不重複、概念群組不重複
+    function validatePaper(paper) {
+        const errs = [];
+        if (paper.length !== CHOICE_COUNT) errs.push("題數 " + paper.length);
+        const ids = new Set(), stems = new Set(), groups = new Set(), axis = {};
+        paper.forEach(q => {
+            if (ids.has(q.id)) errs.push("重複題號 " + q.id); ids.add(q.id);
+            const k = normStem(q.t || q.text);
+            if (stems.has(k)) errs.push("重複題幹 " + q.id); stems.add(k);
+            (q.g || []).forEach(g => { if (groups.has(g)) errs.push("同概念群組 " + g); groups.add(g); });
+            axis[q.a] = (axis[q.a] || 0) + 1;
+        });
+        Object.keys(QUOTA).forEach(a => { if ((axis[a] || 0) !== QUOTA[a]) errs.push("主軸 " + a + " 題數 " + (axis[a] || 0)); });
+        return errs;
+    }
+
+    // 選項打亂；「以上皆是／以上皆非」固定在最後
+    function prepareQuestion(q) {
+        const items = q.o.map((text, i) => ({ text, correct: i === q.c }));
+        const pinned = items.filter(x => /^以上(皆是|皆非)$/.test(x.text));
+        const free = shuffle(items.filter(x => !pinned.includes(x)));
+        const opts = free.concat(pinned);
+        return { id: q.id, a: q.a, g: q.g, text: q.t, options: opts.map(x => x.text), correct: opts.findIndex(x => x.correct) };
+    }
+
+    // 分層抽題：各主軸依配額抽，同卷不重複；「重新抽題」優先避開上一卷題目
+    function drawPaper() {
+        const last = readLastPaper();
+        for (let attempt = 0; attempt < 400; attempt++) {
+            const avoid = attempt < 200 ? new Set(last) : new Set();
+            const usedG = new Set(), usedS = new Set(), picked = [];
+            let ok = true;
+            for (const ax of shuffle(Object.keys(QUOTA))) {
+                let got = 0;
+                for (const q of shuffle(BANK.filter(x => x.a === ax && !avoid.has(x.id)))) {
+                    if (got === QUOTA[ax]) break;
+                    if ((q.g || []).some(g => usedG.has(g)) || usedS.has(normStem(q.t))) continue;
+                    picked.push(q); got++;
+                    (q.g || []).forEach(g => usedG.add(g)); usedS.add(normStem(q.t));
+                }
+                if (got < QUOTA[ax]) { ok = false; break; }
+            }
+            if (ok && validatePaper(picked).length === 0) return shuffle(picked).map(prepareQuestion);
+        }
+        throw new Error("抽題失敗：題庫不足以滿足配額");
+    }
+
+    function paperCode(paper) {
+        let h = 5381;
+        paper.map(q => q.id).sort().join(",").split("").forEach(ch => { h = ((h << 5) + h + ch.charCodeAt(0)) >>> 0; });
+        return h.toString(36).toUpperCase().padStart(6, "0").slice(-6);
+    }
 
     let currentChoice = [];
     let userChoice = [];
     let timerInterval = null;
     let timeSeconds = 60 * 60;
 
-    // ---------- 輔助函數 ----------
-    function getRandomItems(arr, n) {
-        const shuffled = [...arr];
-        for (let i = shuffled.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-        }
-        return shuffled.slice(0, n);
-    }
-
     // ---------- 成績儲存與讀取 ----------
-    // 請將下方 URL 換成您部署後取得的 Web App URL
-const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbykaId-phLVwEjKt3eW1xtVXWhUFbxQb25s6iEGXiQ93dVm9jHzEzEU2PP7rTP89Xpw/exec";
+    const GOOGLE_SHEETS_URL = "https://script.google.com/macros/s/AKfycbykaId-phLVwEjKt3eW1xtVXWhUFbxQb25s6iEGXiQ93dVm9jHzEzEU2PP7rTP89Xpw/exec";
 
-async function saveRecord(record) {
-    // 1. 先儲存到 localStorage（原有功能，保留備份）
-    let records = JSON.parse(localStorage.getItem('examScores') || '[]');
-    records.unshift(record);
-    if (records.length > 100) records = records.slice(0, 100);
-    localStorage.setItem('examScores', JSON.stringify(records));
-    
-    // 2. 異步提交到 Google Sheets（不影響使用者體驗）
-    try {
-        const response = await fetch(GOOGLE_SHEETS_URL, {
-            method: 'POST',
-            mode: 'no-cors',        // 因為 Google Apps Script 支援跨域，但 no-cors 可簡化
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(record)
-        });
-        // 由於 mode: 'no-cors'，無法讀取回應內容，但請求仍會送出
-        console.log("成績已提交至 Google 試算表");
-    } catch (err) {
-        console.error("提交至 Google Sheets 失敗", err);
+    async function saveRecord(record) {
+        let records = JSON.parse(localStorage.getItem('examScores') || '[]');
+        records.unshift(record);
+        if (records.length > 100) records = records.slice(0, 100);
+        localStorage.setItem('examScores', JSON.stringify(records));
+        try {
+            await fetch(GOOGLE_SHEETS_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(record)
+            });
+            console.log("成績已提交至 Google 試算表");
+        } catch (err) {
+            console.error("提交至 Google Sheets 失敗", err);
+        }
+        if (isLoggedIn) renderHistory();
     }
-    
-    // 3. 如果教師已經登入，更新顯示的歷史表格
-    if (typeof isLoggedIn !== 'undefined' && isLoggedIn) {
-        renderHistory();
-    }
-}
 
     function getRecords() {
         return JSON.parse(localStorage.getItem('examScores') || '[]');
@@ -350,6 +449,8 @@ async function saveRecord(record) {
         XLSX.writeFile(wb, `考試成績_${new Date().toISOString().slice(0,19)}.xlsx`);
     }
 
+    const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
     function renderHistory() {
         const records = getRecords();
         const tbody = document.getElementById('historyBody');
@@ -358,40 +459,33 @@ async function saveRecord(record) {
             document.getElementById('historyStats').innerHTML = '';
             return;
         }
-        let html = '';
-        records.forEach(r => {
-            html += `<tr>
-                        <td>${r.timestamp}</td>
-                        <td>${r.name}</td>
-                        <td>${r.studentId}</td>
-                        <td>${r.className || ''}</td>
-                        <td>${r.choiceScore}</td>
-                        <td>${r.essayScore}</td>
-                        <td>${r.total}</td>
-                        <td>${r.grade}</td>
-                     </tr>`;
-        });
-        tbody.innerHTML = html;
+        tbody.innerHTML = records.map(r => `<tr>
+                        <td>${esc(r.timestamp)}</td>
+                        <td>${esc(r.name)}</td>
+                        <td>${esc(r.studentId)}</td>
+                        <td>${esc(r.className || '')}</td>
+                        <td>${esc(r.choiceScore)}</td>
+                        <td>${esc(r.essayScore)}</td>
+                        <td>${esc(r.total)}</td>
+                        <td>${esc(r.grade)}</td>
+                     </tr>`).join('');
         const totals = records.map(r => r.total);
         const avg = (totals.reduce((a,b)=>a+b,0)/totals.length).toFixed(1);
-        const maxScore = Math.max(...totals);
-        const minScore = Math.min(...totals);
         const pass = totals.filter(s => s >= 60).length;
-        const passRate = ((pass/totals.length)*100).toFixed(1);
         document.getElementById('historyStats').innerHTML = `
             <div style="display: flex; gap: 20px; flex-wrap: wrap; margin-top: 15px;">
                 <div><strong>總考試次數：</strong> ${records.length}</div>
                 <div><strong>平均分數：</strong> ${avg}</div>
-                <div><strong>最高分：</strong> ${maxScore}</div>
-                <div><strong>最低分：</strong> ${minScore}</div>
-                <div><strong>及格率：</strong> ${passRate}%</div>
-            </div>
-        `;
+                <div><strong>最高分：</strong> ${Math.max(...totals)}</div>
+                <div><strong>最低分：</strong> ${Math.min(...totals)}</div>
+                <div><strong>及格率：</strong> ${((pass/totals.length)*100).toFixed(1)}%</div>
+            </div>`;
     }
 
     // ---------- 考試核心 ----------
     function initExam() {
-        currentChoice = getRandomItems(CHOICE_QUESTION_POOL, CHOICE_COUNT);
+        currentChoice = drawPaper();
+        writeLastPaper(currentChoice.map(q => q.id));
         userChoice = new Array(CHOICE_COUNT).fill(null);
         renderQuestions();
         if (timerInterval) clearInterval(timerInterval);
@@ -404,7 +498,12 @@ async function saveRecord(record) {
     function renderQuestions() {
         const container = document.getElementById('questionsContainer');
         container.innerHTML = '';
-        // 選擇題
+        const info = document.createElement('div');
+        info.className = 'paper-info';
+        info.innerHTML = `本卷 ${CHOICE_COUNT} 題，自 ${BANK.length} 題題庫分層隨機抽出：` +
+            Object.keys(QUOTA).map(a => `${AXIS_NAME[a]} ${QUOTA[a]}`).join('｜') +
+            `。同卷題目不重複、近似題不同時出現，選項順序隨機。試卷碼 <code>${paperCode(currentChoice)}</code>`;
+        container.appendChild(info);
         const choiceTitle = document.createElement('div');
         choiceTitle.className = 'section-title';
         choiceTitle.innerText = '📌 選擇題（每題 2 分）';
@@ -412,17 +511,17 @@ async function saveRecord(record) {
         currentChoice.forEach((q, idx) => {
             const card = document.createElement('div');
             card.className = 'question-card';
+            card.dataset.qid = q.id;
             card.innerHTML = `
-                <div class="q-title">${idx+1}. ${q.text}</div>
+                <div class="q-title">${idx+1}. ${esc(q.text)}<span class="ax-chip ${q.a}">${esc(AXIS_NAME[q.a].split(' ')[0])}</span></div>
                 <div class="options" id="options-${idx}">
                     ${q.options.map((opt, optIdx) => `
                         <div class="option" data-choice="${idx}" data-opt="${optIdx}" onclick="selectChoice(${idx},${optIdx},this)">
                             <input type="radio" name="c${idx}" style="display:none">
-                            ${String.fromCharCode(65+optIdx)}. ${opt}
+                            ${String.fromCharCode(65+optIdx)}. ${esc(opt)}
                         </div>
                     `).join('')}
-                </div>
-            `;
+                </div>`;
             container.appendChild(card);
             if (userChoice[idx] !== null) {
                 const selectedDiv = card.querySelector(`.option[data-opt="${userChoice[idx]}"]`);
@@ -433,8 +532,7 @@ async function saveRecord(record) {
 
     window.selectChoice = function(qIdx, optIdx, element) {
         userChoice[qIdx] = optIdx;
-        const parent = element.parentElement;
-        Array.from(parent.children).forEach(child => child.classList.remove('selected'));
+        Array.from(element.parentElement.children).forEach(child => child.classList.remove('selected'));
         element.classList.add('selected');
     };
 
@@ -460,22 +558,18 @@ async function saveRecord(record) {
 
     function computeResult() {
         let choiceScore = 0;
-        let choiceMistakes = [];
-        for (let i = 0; i < currentChoice.length; i++) {
+        const choiceMistakes = [];
+        currentChoice.forEach((q, i) => {
             const user = userChoice[i];
-            const correct = currentChoice[i].correct;
-            if (user === correct) {
-                choiceScore += 2;
-            } else {
-                choiceMistakes.push({
-                    num: i+1,
-                    text: currentChoice[i].text,
-                    userAnswer: user !== null ? String.fromCharCode(65+user) : "未作答",
-                    correctAnswer: String.fromCharCode(65+correct),
-                    correctText: currentChoice[i].options[correct]
-                });
-            }
-        }
+            if (user === q.correct) choiceScore += 2;
+            else choiceMistakes.push({
+                num: i + 1,
+                text: q.text,
+                userAnswer: user !== null ? String.fromCharCode(65 + user) : "未作答",
+                correctAnswer: String.fromCharCode(65 + q.correct),
+                correctText: q.options[q.correct]
+            });
+        });
         // 總分只計選擇題（比重 100%）：選擇題得分 × CHOICE_MULTIPLIER
         const CHOICE_MULTIPLIER = 1.6;
         const total = Math.round(choiceScore * CHOICE_MULTIPLIER * 10) / 10;
@@ -493,35 +587,33 @@ async function saveRecord(record) {
 
         document.getElementById('totalScore').innerText = result.total;
         document.getElementById('gradeLetter').innerHTML = `學習等級：${result.grade}`;
-        let html = `<strong>✅ 選擇題得分：${result.choiceScore} / 60（總分 = 選擇題 × 1.6）</strong><br><br>`;
+        let html = `<strong>✅ 選擇題得分：${result.choiceScore} / ${CHOICE_COUNT * 2}（總分 = 選擇題 × 1.6）</strong><br><br>`;
         if (result.choiceMistakes.length === 0) html += `<p>🎉 選擇題全對！</p>`;
         else {
             html += `<p><strong>❌ 選擇題錯題解析</strong></p>`;
             result.choiceMistakes.forEach(m => {
-                html += `<div class="mistake-item">${m.num}. 您的答案：${m.userAnswer}，正確答案：${m.correctAnswer} (${m.correctText})</div>`;
+                html += `<div class="mistake-item">${m.num}. ${esc(m.text)}<br>您的答案：${m.userAnswer}，正確答案：${m.correctAnswer}（${esc(m.correctText)}）</div>`;
             });
         }
         document.getElementById('mistakeList').innerHTML = html;
         document.getElementById('resultArea').style.display = 'block';
 
-        const record = {
+        saveRecord({
             timestamp: new Date().toLocaleString('zh-TW'),
             name, studentId, className,
             choiceScore: result.choiceScore,
             essayScore: 0,   // 已取消簡答題，保留欄位讓試算表格式不變
             total: result.total,
             grade: result.grade
-        };
-        saveRecord(record);
+        });
     }
 
     function resetExam() {
-        if (confirm("重新測驗將清除目前作答並重新抽題，確定嗎？")) {
+        if (confirm("重新測驗將清除目前作答並重新抽題（會避開上一卷的題目），確定嗎？")) {
             initExam();
         }
     }
 
-    // 綁定事件
     document.getElementById('submitBtn').addEventListener('click', submitExam);
     document.getElementById('resetBtn').addEventListener('click', resetExam);
     document.getElementById('loginBtn').addEventListener('click', teacherLogin);
@@ -529,7 +621,15 @@ async function saveRecord(record) {
     document.getElementById('clearHistoryBtn').addEventListener('click', clearHistory);
     document.getElementById('exportAllBtn').addEventListener('click', exportAllToExcel);
 
-    // 初始化密碼雜湊和考試
+    (function () {
+        const nF = BANK.filter(q => q.a === 'F').length;
+        document.getElementById('examSubtitle').textContent =
+            `物聯網與智慧人機協作｜題庫 ${BANK.length} 題（含 HITL／HOTL／HOOTL 人機協作 ${nF} 題）｜分層隨機抽 ${CHOICE_COUNT} 題・同卷不重複｜成績自動保存`;
+    })();
+
+    // 測試／稽核用
+    window.__examOnline = { version: "v2-2026-10-29", BANK, QUOTA, drawPaper, validatePaper, prepareQuestion, paperCode, current: () => currentChoice };
+
     (async () => {
         await initPasswordHash();
         initExam();
