@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<quiz>
+<question type="category"><category><text>$course$/top/115-1期中題池-數位科技/停用-近似重複（不抽題）</text></category><info format="html"><text>2026-10-29：自「選擇題」移出的近似重複／互洩答案題，保留備查，不供隨機抽題。</text></info></question>
+<question type="category"><category><text>$course$/top/115-1期中題池-數位科技/人機協作HITL</text></category><info format="html"><text>2026-10-29：人機協作 HITL／HOTL／HOOTL 題組（與 exam-online 題庫 v2 同源，每概念只收一題）。測驗卷每次隨機抽 6 題。</text></info></question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H01</text></name>
+<questiontext format="html"><text><![CDATA[<p>「人在迴路中」（Human-in-the-Loop, HITL）的主要特徵是？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：AI 先提出結果，須經人類確認或修改後才執行</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[AI 先提出結果，須經人類確認或修改後才執行]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[系統只負責儲存資料，不做任何判斷]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[人類只負責設備的電源與網路維護]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[系統執行後，人類只在學期末查看報表]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H02</text></name>
+<questiontext format="html"><text><![CDATA[<p>「人在迴路上」（Human-on-the-Loop, HOTL）的主要特徵是？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：系統自主執行，人類持續監看，必要時可介入或叫停</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[系統自主執行，人類持續監看，必要時可介入或叫停]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[系統只在故障時發出聲響，平時不提供任何資訊]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[人類事先寫好所有答案，系統只負責顯示]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[系統無法連網，只能離線運作]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H03</text></name>
+<questiontext format="html"><text><![CDATA[<p>「人在迴路外」（Human-out-of-the-Loop, HOOTL）的主要特徵是？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：系統自主完成感知、判斷與執行，運作當下沒有人即時介入</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[系統自主完成感知、判斷與執行，運作當下沒有人即時介入]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[系統只負責把資料顯示在儀表板上]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[由人類以遙控器操作系統的每一個動作]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[系統必須等雲端管理員上線才能啟動]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H05</text></name>
+<questiontext format="html"><text><![CDATA[<p>依「運作中人類介入程度」由高到低排列，正確的是？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：HITL ＞ HOTL ＞ HOOTL</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[HITL ＞ HOTL ＞ HOOTL]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOOTL ＞ HOTL ＞ HITL]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOTL ＞ HITL ＞ HOOTL]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[三者的人類介入程度相同]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H06</text></name>
+<questiontext format="html"><text><![CDATA[<p>人機協作模式名稱中的「迴路（loop）」指的是？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：系統「感知→判斷→行動→回饋」的決策循環</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[系統「感知→判斷→行動→回饋」的決策循環]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[連接電腦的實體電線]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[程式語言中的 for 迴圈語法]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[網路封包的傳送路徑]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H07</text></name>
+<questiontext format="html"><text><![CDATA[<p>AI 先標出疑似病蟲害的葉片照片，由植物醫生逐張確認後才開立防治處方，屬於哪一種人機協作模式？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：HITL（人在迴路中）</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[HITL（人在迴路中）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOTL（人在迴路上）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOOTL（人在迴路外）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[純人工作業（無自動化）]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H08</text></name>
+<questiontext format="html"><text><![CDATA[<p>養殖池溶氧低於門檻時，系統自動開啟打氣機；養殖戶在手機儀表板監看，必要時可手動關閉，屬於哪一種模式？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：HOTL（人在迴路上）</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="0" format="html"><text><![CDATA[HITL（人在迴路中）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="100" format="html"><text><![CDATA[HOTL（人在迴路上）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOOTL（人在迴路外）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[純人工作業（無自動化）]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H09</text></name>
+<questiontext format="html"><text><![CDATA[<p>汽車發生碰撞時，安全氣囊在數十毫秒內自動引爆，屬於哪一種模式？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：HOOTL（人在迴路外）</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="0" format="html"><text><![CDATA[HITL（人在迴路中）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOTL（人在迴路上）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="100" format="html"><text><![CDATA[HOOTL（人在迴路外）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[純人工作業（無自動化）]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H10</text></name>
+<questiontext format="html"><text><![CDATA[<p>老師用 AI 起草作業評語，逐份閱讀、修改後才發給學生，屬於哪一種模式？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：HITL（人在迴路中）</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[HITL（人在迴路中）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOTL（人在迴路上）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOOTL（人在迴路外）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[純人工作業（無自動化）]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H11</text></name>
+<questiontext format="html"><text><![CDATA[<p>產線視覺檢測系統自動剔除瑕疵品，品管工程師在監控室觀看即時統計，發現誤剔率異常時可暫停產線，屬於哪一種模式？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：HOTL（人在迴路上）</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="0" format="html"><text><![CDATA[HITL（人在迴路中）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="100" format="html"><text><![CDATA[HOTL（人在迴路上）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOOTL（人在迴路外）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[純人工作業（無自動化）]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H12</text></name>
+<questiontext format="html"><text><![CDATA[<p>SAE Level 2（部分自動化）車輛由系統控制轉向與加減速，但駕駛必須持續注意路況、隨時接手，駕駛的角色最接近哪一種模式？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：HOTL（人在迴路上）</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="0" format="html"><text><![CDATA[HITL（人在迴路中）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="100" format="html"><text><![CDATA[HOTL（人在迴路上）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOOTL（人在迴路外）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[純人工作業（無自動化）]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H14</text></name>
+<questiontext format="html"><text><![CDATA[<p>銀行的 AI 只提供貸款風險評分建議，是否核貸由行員最後決定，屬於哪一種模式？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：HITL（人在迴路中）</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[HITL（人在迴路中）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOTL（人在迴路上）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOOTL（人在迴路外）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[純人工作業（無自動化）]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H15</text></name>
+<questiontext format="html"><text><![CDATA[<p>路口號誌依車流自動調整秒數，交控中心人員監看即時畫面並可手動切換，屬於哪一種模式？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：HOTL（人在迴路上）</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="0" format="html"><text><![CDATA[HITL（人在迴路中）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="100" format="html"><text><![CDATA[HOTL（人在迴路上）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOOTL（人在迴路外）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[純人工作業（無自動化）]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H16</text></name>
+<questiontext format="html"><text><![CDATA[<p>心律調節器依心跳狀況即時自動發出電刺激，屬於哪一種模式？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：HOOTL（人在迴路外）</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="0" format="html"><text><![CDATA[HITL（人在迴路中）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOTL（人在迴路上）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="100" format="html"><text><![CDATA[HOOTL（人在迴路外）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[純人工作業（無自動化）]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H17</text></name>
+<questiontext format="html"><text><![CDATA[<p>學生把程式碼交給 AI 除錯，AI 列出修改建議，學生逐行理解後才決定是否採用，屬於哪一種模式？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：HITL（人在迴路中）</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[HITL（人在迴路中）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOTL（人在迴路上）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOOTL（人在迴路外）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[純人工作業（無自動化）]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H18</text></name>
+<questiontext format="html"><text><![CDATA[<p>無人機自動規劃航線巡檢農田，但每次噴灑農藥前都要操作員核准，「噴藥」這個環節屬於哪一種模式？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：HITL（人在迴路中）</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[HITL（人在迴路中）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOTL（人在迴路上）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOOTL（人在迴路外）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[純人工作業（無自動化）]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H20</text></name>
+<questiontext format="html"><text><![CDATA[<p>智慧溫室的 AI 依天氣預報自動排程澆灌，農民每天查看報表、發現異常時修改設定，屬於哪一種模式？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：HOTL（人在迴路上）</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="0" format="html"><text><![CDATA[HITL（人在迴路中）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="100" format="html"><text><![CDATA[HOTL（人在迴路上）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOOTL（人在迴路外）]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[純人工作業（無自動化）]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H21</text></name>
+<questiontext format="html"><text><![CDATA[<p>電網故障時常由系統在毫秒內自動隔離故障線路（HOOTL），主要原因是？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：需要的反應時間遠短於人類的反應速度</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[需要的反應時間遠短於人類的反應速度]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[電網故障不會造成任何損失]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[電力公司沒有值班人員]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[AI 模型越大越安全]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H22</text></name>
+<questiontext format="html"><text><![CDATA[<p>AI 輔助醫療影像判讀多採用 HITL，最主要的原因是？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：誤判後果嚴重，需要醫師把關並承擔專業責任</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[誤判後果嚴重，需要醫師把關並承擔專業責任]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[AI 完全無法辨識影像]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[醫院沒有網路可上傳影像]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HITL 的處理速度最快]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H24</text></name>
+<questiontext format="html"><text><![CDATA[<p>下列哪一個情境「最不適合」採用 HOOTL？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：決定病人是否進行手術</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[決定病人是否進行手術]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[空調自動維持室內溫度]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[掃地機器人規劃清掃路線]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[手機依環境光自動調整螢幕亮度]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H26</text></name>
+<questiontext format="html"><text><![CDATA[<p>要讓 HOTL 中的人類能「有效監督」，系統最必要具備的是？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：即時、易懂的狀態資訊，以及隨時可用的介入或停止機制</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[即時、易懂的狀態資訊，以及隨時可用的介入或停止機制]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[越多越好的動畫特效]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[完全隱藏系統的判斷過程]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[只在年底產生一份總報告]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H27</text></name>
+<questiontext format="html"><text><![CDATA[<p>在 HOTL 情境中，人類監督者應有的做法是？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：定期抽查系統決策，發現偏離目標時及時介入調整</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[定期抽查系統決策，發現偏離目標時及時介入調整]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[系統開始運作後就不再查看]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[把每個決策都親手重做一次]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[關閉所有警報以免受到干擾]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H29</text></name>
+<questiontext format="html"><text><![CDATA[<p>HITL 模式最主要的限制是？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：人工審核容易成為瓶頸，速度與處理量受限</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[人工審核容易成為瓶頸，速度與處理量受限]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[完全沒有人為結果負責]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[錯誤一定無法被發現]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[操作者不需要任何專業知識]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H30</text></name>
+<questiontext format="html"><text><![CDATA[<p>「自動化偏誤」（Automation Bias）是指？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：人過度相信自動化系統的輸出，忽略矛盾訊息或不再查核</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[人過度相信自動化系統的輸出，忽略矛盾訊息或不再查核]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[機器對某些使用者特別偏心]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[自動化設備的機械加工誤差]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[系統自動把資料由小到大排序]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H31</text></name>
+<questiontext format="html"><text><![CDATA[<p>HOTL 監控中常見的「警報疲勞」，會造成什麼問題？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：警報太多，監督者開始忽略或延誤處理真正重要的警報</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[警報太多，監督者開始忽略或延誤處理真正重要的警報]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[警報器使用過久而故障]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[監督者因加班而請假]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[系統自動關閉所有感測器]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H32</text></name>
+<questiontext format="html"><text><![CDATA[<p>「先思考、後驗證」的學習流程中，使用生成式 AI 的正確順序是？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：先自己拆解問題、寫下想法，再請 AI 產生結果，最後逐項查核修正</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[先自己拆解問題、寫下想法，再請 AI 產生結果，最後逐項查核修正]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[先請 AI 給完整答案，再直接照抄繳交]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[完全依賴 AI，不需要自己思考]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[先繳交作業，之後再看 AI 怎麼寫]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H33</text></name>
+<questiontext format="html"><text><![CDATA[<p>從 HITL 走向 HOTL（由「作」而「管」），對人的能力要求轉變為？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：從親自執行每個步驟，轉為設定目標、監控品質並適時介入</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[從親自執行每個步驟，轉為設定目標、監控品質並適時介入]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[從需要專業知識，轉為完全不需要知識]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[從使用電腦，轉為只能使用紙本]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[從團隊合作，轉為完全不與人溝通]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H34</text></name>
+<questiontext format="html"><text><![CDATA[<p>長期把工作全部交給 AI（HOOTL），對人可能造成的風險是？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：技能退化，系統失效時無力接手</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[技能退化，系統失效時無力接手]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[打字速度一定變快]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[電腦硬體壽命變長]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[網路速度變慢]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H35</text></name>
+<questiontext format="html"><text><![CDATA[<p>AI 的「可解釋性」（Explainability）對 HITL 的重要性在於？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：讓人類理解 AI 的判斷依據，才能做出有意義的確認或修正</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[讓人類理解 AI 的判斷依據，才能做出有意義的確認或修正]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[讓 AI 執行得更快]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[讓畫面更美觀]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[讓系統不需要任何資料]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H36</text></name>
+<questiontext format="html"><text><![CDATA[<p>在 HITL 機器學習中，人類修正並標註 AI 判錯的樣本後回饋給模型，主要目的是？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：持續改善模型的準確度</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[持續改善模型的準確度]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[刪除所有訓練資料]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[讓模型永遠不再更新]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[降低感測器的耗電]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H37</text></name>
+<questiontext format="html"><text><![CDATA[<p>要把「完全自動的智慧灌溉（HOOTL）」改成 HOTL，最直接的做法是？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：加上即時儀表板與異常警報，並保留人工停止／覆寫開關</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[加上即時儀表板與異常警報，並保留人工停止／覆寫開關]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[拆除所有感測器改用人工澆水]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[每次澆水前都要農民按下確認鍵]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[把澆水時間改成隨機]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H40</text></name>
+<questiontext format="html"><text><![CDATA[<p>生成式 AI 的「幻覺」（Hallucination）是指？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：產生看似合理、但與事實不符的內容</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[產生看似合理、但與事實不符的內容]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[AI 系統當機無法回應]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[AI 產生視覺錯覺圖片]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[AI 回答速度太慢]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+<question type="multichoice">
+<name><text>數位期中-HITL-H41</text></name>
+<questiontext format="html"><text><![CDATA[<p>關於人機協作模式，下列敘述何者正確？</p>]]></text></questiontext>
+<generalfeedback format="html"><text><![CDATA[<p>正確答案：同一個系統的不同功能，可以分別採用不同的協作模式</p>]]></text></generalfeedback>
+<defaultgrade>1.0000000</defaultgrade><penalty>0.3333333</penalty><hidden>0</hidden><idnumber></idnumber>
+<single>true</single><shuffleanswers>true</shuffleanswers><answernumbering>ABCD</answernumbering><showstandardinstruction>0</showstandardinstruction>
+<correctfeedback format="html"><text></text></correctfeedback><partiallycorrectfeedback format="html"><text></text></partiallycorrectfeedback><incorrectfeedback format="html"><text></text></incorrectfeedback>
+<answer fraction="100" format="html"><text><![CDATA[同一個系統的不同功能，可以分別採用不同的協作模式]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[一個系統只能採用一種協作模式]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[HOOTL 一定比 HITL 更先進]]></text><feedback format="html"><text></text></feedback></answer>
+<answer fraction="0" format="html"><text><![CDATA[採用 HITL 代表 AI 能力不足、應該淘汰]]></text><feedback format="html"><text></text></feedback></answer>
+</question>
+</quiz>
